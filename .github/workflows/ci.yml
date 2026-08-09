@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - feature-ci-cd
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validar-projeto:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+
+      - name: Validar estrutura do projeto
+        run: |
+          test -f README.md
+          echo "Estrutura do projeto validada com sucesso"
+
+      - name: Validar conteudo do Assistente de FAQ
+        run: |
+          grep -q "Assistente de FAQ" README.md
+          echo "Conteudo principal encontrado"
